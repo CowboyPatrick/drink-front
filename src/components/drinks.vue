@@ -1,8 +1,9 @@
 <template>
     <h1>My Drinks</h1>
-
-    {{ drinklist[0].name }}
-    {{ drinklist[0].category}}
+    <div class="card-drink" v-for="drink in drinklist" :key=drink.id>
+        <h2>Name: {{ drink.name }}</h2>
+        <h3>Category: {{ drink.category}}</h3>
+    </div>
 </template>
     
 <script>
@@ -30,5 +31,10 @@ export default {
 </script>
 
 <style scoped>
+.card-drink {
+    border: 1px solid grey;
+    margin: 0 auto;
+    width: 400px;
+}
 
 </style>
