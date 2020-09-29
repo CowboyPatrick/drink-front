@@ -1,7 +1,8 @@
 <template>
     <h1>My Drinks</h1>
-    {{ drinklist[0] }}
-    {{ drinklist}}
+
+    {{ drinklist[0].name }}
+    {{ drinklist[0].category}}
 </template>
     
 <script>
@@ -9,11 +10,11 @@ export default {
     name: 'drinks',
     data() {
         return {
-            drinklist: {},
+            drinklist: [{}],
             url_base: 'https://drink-log-backend.herokuapp.com/api/v1/drinks',
         }
     },
-    created() {
+    mounted() {
         fetch(`${this.url_base}`)
         .then( res =>  res.json())
         .then(this.setResults)
@@ -22,6 +23,7 @@ export default {
         setResults (results) {
             console.log(results)
             this.drinklist = results
+            console.log(this.drinklist[0].name);
         }
     }
 }
