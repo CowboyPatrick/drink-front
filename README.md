@@ -1,4 +1,6 @@
 # drink-front
+## About
+A VUE front-end for a rails back-end API that I created.  This app will be able to access a log of the drinks.
 
 # TODO
 * [ ] Create new drinks
