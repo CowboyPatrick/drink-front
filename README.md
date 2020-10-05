@@ -1,5 +1,12 @@
 # drink-front
 
+# TODO
+* [ ] Create new drinks
+* [ ] Add review to drinks
+* [ ] log-in using VUE and not rails
+* [ ] authorize user
+* [ ] 
+
 ## Project setup
 ```
 yarn install
