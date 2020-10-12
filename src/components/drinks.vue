@@ -19,7 +19,8 @@ export default {
     data() {
         return {
             drinklist: [{}],
-            url_base: 'https://drink-log-backend.herokuapp.com/api/v1/drinks',
+            // url_base: 'https://drink-log-backend.herokuapp.com/api/v1/drinks',
+            url_base: 'http://localhost:3000/api/v1/drinks',
             new_drink: '',
             category: ''
         }
@@ -41,7 +42,7 @@ export default {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: this.new_drink, category: this.category })
             };
-              fetch("https://drink-log-backend.herokuapp.com/api/v1/drinks", requestOptions)
+              fetch(`${this.url_base}`, requestOptions)
                 .then(response => response.json())
                 .then(data => (response));
             console.log(response)
