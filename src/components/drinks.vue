@@ -1,8 +1,10 @@
 <template>
     <h1>My Drinks</h1>
-    <form @submit.prevent="createDrink">
-        <input type="text" v-model="new_drink">
-        <input type="text" v-model="category">
+    <form id="new_drink_form" @submit.prevent="createDrink">
+        <label for="new_drink">Drink Name</label>
+        <input type="text" name="new_drink" v-model="new_drink">
+        <label for="drink_category">Category</label>
+        <input type="text" for="drink_category" v-model="category">
         <button>Add a Drink</button>
     </form>
     <div class="card-drink" v-for="drink in drinklist" :key=drink.id>
@@ -34,7 +36,18 @@ export default {
             console.log(this.drinklist[0].name);
         },
         createDrink () {
+            const requestOptions = {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: this.new_drink, category: this.category })
+            };
+              fetch("https://drink-log-backend.herokuapp.com/api/v1/drinks", requestOptions)
+                .then(response => response.json())
+                .then(data => (response));
+            console.log(response)
             console.log(this.new_drink)
+            this.new_drink = ""
+            this.category = ""
         }
     }
 }
@@ -45,6 +58,11 @@ export default {
     border: 1px solid grey;
     margin: 0 auto;
     width: 400px;
+    margin-bottom: 8px;
+    box-shadow: -2px 2px;
 }
 
+#new_drink_form{
+    display: flexbox;
+}
 </style>
