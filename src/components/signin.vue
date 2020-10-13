@@ -27,10 +27,12 @@ export default {
             headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({user: { email: this.email, password: this.password }})
             };
-            fetch(`${this.url_base}`, requestOptions)
+            fetch(this.url_base, requestOptions)
             .then(response => response.json())
-            .then(data => (this.apiResponse = response));
-            console.log(this.apiResponse)
+            .then(data => {
+                this.apiResponse = data
+                console.log(data)
+                });
             this.email = ''
             this.password = ''
         }
