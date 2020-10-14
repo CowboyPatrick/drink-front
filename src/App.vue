@@ -1,5 +1,6 @@
 <template>
 <div id="app">
+  <!-- <signin :signed-in="signedIn"/> -->
   <signin/>
   <drinks/>
 </div>
@@ -14,7 +15,10 @@ export default {
   components: {
     drinks,
     signin
-  }
+  },
+  // data() {
+  //   signedIn: false
+  // }
 }
 </script>
 

@@ -26,7 +26,14 @@ export default {
         }
     },
     mounted() {
-        fetch(`${this.url_base}`)
+        if (localStorage.getItem('authentication_token'))
+        fetch(`${this.url_base}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-User-Email': 'doug@doug.com',
+                'X-User-Token': 'mDfDy-TVmXu6zfY-UwTQ'
+            }
+        })
         .then( res =>  res.json())
         .then(this.setResults)
     },
@@ -34,21 +41,21 @@ export default {
         setResults (results) {
             console.log(results)
             this.drinklist = results
-            console.log(this.drinklist[0].name);
+            this.new_drink = ""
+            this.category = ""
         },
         createDrink () {
             const requestOptions = {
                 method: "POST",
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json',
+                'X-User-Email': 'doug@doug.com',
+                'X-User-Token': 'mDfDy-TVmXu6zfY-UwTQ' },
                 body: JSON.stringify({ name: this.new_drink, category: this.category })
             };
-              fetch(`${this.url_base}`, requestOptions)
+              fetch(this.url_base, requestOptions)
                 .then(response => response.json())
-                .then(data => (response));
-            console.log(response)
-            console.log(this.new_drink)
-            this.new_drink = ""
-            this.category = ""
+                .then(this.setResults)
+                
         }
     }
 }
