@@ -31,7 +31,7 @@ export default {
             headers: {
                 'Content-Type': 'application/json',
                 'X-User-Email': 'doug@doug.com',
-                'X-User-Token': 'mDfDy-TVmXu6zfY-UwTQ'
+                'X-User-Token': localStorage.getItem('authentication_token')
             }
         })
         .then( res =>  res.json())
@@ -49,7 +49,7 @@ export default {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json',
                 'X-User-Email': 'doug@doug.com',
-                'X-User-Token': 'mDfDy-TVmXu6zfY-UwTQ' },
+                'X-User-Token': localStorage.getItem('authentication_token') },
                 body: JSON.stringify({ name: this.new_drink, category: this.category })
             };
               fetch(this.url_base, requestOptions)
