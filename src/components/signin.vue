@@ -1,4 +1,4 @@
-<template>
+<template>  
 <h1>Sign in</h1>
     <form id="sign_in_form" @submit.prevent="logIn" v-if="signedIn === false">
         <label for="email">Email: </label>
@@ -20,7 +20,7 @@ export default {
         return{
         email: '',
         password: '',
-        url_base: 'http://localhost:3000/api/v1/sign_in',
+        sign_in_url: 'http://localhost:3000/api/v1/sign_in',
         apiResponse: {},
         signedIn: false
         }
@@ -32,7 +32,7 @@ export default {
             headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({user: { email: this.email, password: this.password }})
             };
-            fetch(this.url_base, requestOptions)
+            fetch(this.sign_in_url, requestOptions)
             // .then(response => console.log(response.headers))
             .then(response => response.json())
             .then(data => {

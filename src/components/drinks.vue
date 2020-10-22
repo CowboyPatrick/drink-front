@@ -1,62 +1,60 @@
 <template>
-    <h1>My Drinks</h1>
+    <h1>Drinks</h1>
     <form id="new_drink_form" @submit.prevent="createDrink">
         <label for="new_drink">Drink Name</label>
-        <input type="text" name="new_drink" v-model="new_drink">
+        <!-- <input type="text" name="new_drink" v-model="new_drink"> -->
         <label for="drink_category">Category</label>
-        <input type="text" for="drink_category" v-model="category">
+        <!-- <input type="text" for="drink_category" v-model="category"> -->
         <button>Add a Drink</button>
     </form>
     <div class="card-drink" v-for="drink in drinklist" :key=drink.id>
         <h2>Name: {{ drink.name }}</h2>
         <h3>Category: {{ drink.category}}</h3>
-    </div>    
+    </div>
 </template>
     
 <script>
+
 export default {
     name: 'drinks',
+    props : {
+        drinklist: {
+            type: Array
+        },
+        url_base: {
+            type: String
+        },
+        new_drink: {
+            type: String
+        },
+        category: {
+            type: String
+        }
+    },
     data() {
         return {
-            drinklist: [{}],
-            // url_base: 'https://drink-log-backend.herokuapp.com/api/v1/drinks',
-            url_base: 'http://localhost:3000/api/v1/drinks',
-            new_drink: '',
-            category: ''
+            // drinklist: [{}],
+            // // url_base: 'https://drink-log-backend.herokuapp.com/api/v1/drinks',
+            // url_base: 'http://localhost:3000/api/v1/drinks',
+            // new_drink: '',
+            // category: ''
         }
-    },
-    mounted() {
-        if (localStorage.getItem('authentication_token'))
-        fetch(`${this.url_base}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'X-User-Email': 'doug@doug.com',
-                'X-User-Token': localStorage.getItem('authentication_token')
-            }
-        })
-        .then( res =>  res.json())
-        .then(this.setResults)
     },
     methods:{
-        setResults (results) {
-            console.log(results)
-            this.drinklist = results
-            this.new_drink = ""
-            this.category = ""
-        },
-        createDrink () {
-            const requestOptions = {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json',
-                'X-User-Email': 'doug@doug.com',
-                'X-User-Token': localStorage.getItem('authentication_token') },
-                body: JSON.stringify({ name: this.new_drink, category: this.category })
-            };
-              fetch(this.url_base, requestOptions)
-                .then(response => response.json())
-                .then(this.setResults)
+
+        // createDrink () {
+        //     const requestOptions = {
+        //         method: "POST",
+        //         headers: { 'Content-Type': 'application/json',
+        //         'X-User-Email': 'doug@doug.com',
+        //         'X-User-Token': localStorage.getItem('authentication_token') },
+        //         body: JSON.stringify({ name: this.new_drink, category: this.category })
+        //     };
+        //       fetch(this.url_base, requestOptions)
+        //         .then(response => response.json())
+        //         .then(this.setResults)
                 
-        }
+        // },
     }
 }
 </script>
