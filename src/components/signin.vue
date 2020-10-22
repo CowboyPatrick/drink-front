@@ -37,7 +37,9 @@ export default {
             .then(response => response.json())
             .then(data => {
                 this.apiResponse = data
+                // console.log(this.apiResponse)
                 localStorage.setItem('authentication_token', this.apiResponse.data.user.authentication_token)
+                localStorage.setItem('email', this.apiResponse.data.user.email)
                 this.signedIn = true
                 // this.$emit(signedIn)
                 });

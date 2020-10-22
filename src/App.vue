@@ -1,12 +1,11 @@
 <template>
 <div id="app">
   <!-- <signin :signed-in="signedIn"/> -->
-  <signin />
+  <signin/>
   <drinks  
   :drinklist="drinklist"
   :url_base="url_base"
-  :new_drink="new_drink"
-  :category="category"
+  @setResults="setResults"
   />
 </div>
 </template>
@@ -28,31 +27,33 @@ export default {
     drinklist: [{}],
     // url_base: 'https://drink-log-backend.herokuapp.com/api/v1/drinks',
     url_base: 'http://localhost:3000/api/v1/drinks',
-    new_drink: '',
-    category: ''
+    // new_drink: '',
+    // category: '',
+    email: ''
     }
   },    
   mounted() {
     console.log('test')
-    if (localStorage.getItem('authentication_token'))
-    console.log('test2')
-    fetch(`${this.url_base}`, {
+    if (localStorage.getItem('authentication_token')) {  
+    this.email = localStorage.getItem('email')
+    this.getData()
+    }
+  },
+  methods: {
+    getData() {
+      fetch(`${this.url_base}`, {
         headers: {
             'Content-Type': 'application/json',
-            'X-User-Email': 'doug@doug.com',
+            'X-User-Email': localStorage.getItem('email'),
             'X-User-Token': localStorage.getItem('authentication_token')
         }
     })
     .then( res =>  res.json())
     .then(this.setResults)
-  },
-  methods: {      
+    },      
     setResults(results) {
-      console.log('test3')
       console.log(results)
       this.drinklist = results
-      this.new_drink = ""
-      this.category = ""
     },
   }
 }
