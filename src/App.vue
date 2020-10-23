@@ -5,7 +5,6 @@
   <drinks  
   :drinklist="drinklist"
   :url_base="url_base"
-  @setResults="setResults"
   />
 </div>
 </template>
@@ -26,7 +25,7 @@ export default {
     // hello: 'hello world',
     drinklist: [{}],
     // url_base: 'https://drink-log-backend.herokuapp.com/api/v1/drinks',
-    url_base: 'http://localhost:3000/api/v1/drinks',
+    url_base: 'http://localhost:3000/api/v1/drinks/',
     // new_drink: '',
     // category: '',
     email: ''

@@ -10,6 +10,8 @@
     <div class="card-drink" v-for="drink in drinklist" :key=drink.id>
         <h2>Name: {{ drink.name }}</h2>
         <h3>Category: {{ drink.category}}</h3>
+        <p>{{drink.id}}</p>
+        <button @click="destroy(drink.id)">Delete</button>
     </div>
 </template>
     
@@ -27,12 +29,6 @@ export default {
         email: {
             type: String
         }
-        // new_drink: {
-        //     type: String
-        // },
-        // category: {
-        //     type: String
-        // }
     },
     data() {
         return {
@@ -40,12 +36,12 @@ export default {
             // // url_base: 'https://drink-log-backend.herokuapp.com/api/v1/drinks',
             // url_base: 'http://localhost:3000/api/v1/drinks',
             new_drink: '',
-            category: ''
+            category: '',
         }
     },
     methods:{
 
-        createDrink () {
+        createDrink() {
             if (this.new_drink != "" && this.category != ""){
             const requestOptions = {
                 method: "POST",
@@ -56,15 +52,26 @@ export default {
             };
               fetch(this.url_base, requestOptions)
                 .then(response => response.json())
-                .then(this.setResults)
+                .then(data => console.log(data))
             }
                 
         },
-        setResults() {
-            this.new_drink = ""
-            this.category = ""
-            this.$emit('set-results')
+        destroy(id) {
+            const requestOptions = {
+                method: "DELETE",
+                headers: { 'Content-Type': 'application/json',
+                'X-User-Email': localStorage.getItem('email'),
+                'X-User-Token': localStorage.getItem('authentication_token')},
+                };
+              fetch(`${this.url_base}${id}`, requestOptions)
+            // console.log(id)
+
         }
+        // setResults() {
+        //     this.new_drink = ""
+        //     this.category = ""
+        //     this.$emit('set-results')
+        // }
     }
 }
 </script>
