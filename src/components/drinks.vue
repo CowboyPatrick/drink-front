@@ -1,5 +1,5 @@
 <template>
-    <h1>My Drinks</h1>
+    <h1>Drinks</h1>
     <form id="new_drink_form" @submit.prevent="createDrink">
         <label for="new_drink">Drink Name</label>
         <input type="text" name="new_drink" v-model="new_drink">
@@ -10,45 +10,68 @@
     <div class="card-drink" v-for="drink in drinklist" :key=drink.id>
         <h2>Name: {{ drink.name }}</h2>
         <h3>Category: {{ drink.category}}</h3>
-    </div>    
+        <p>{{drink.id}}</p>
+        <button @click="destroy(drink.id)">Delete</button>
+    </div>
 </template>
     
 <script>
+
 export default {
     name: 'drinks',
+    props : {
+        drinklist: {
+            type: Array
+        },
+        url_base: {
+            type: String
+        },
+        email: {
+            type: String
+        }
+    },
     data() {
         return {
-            drinklist: [{}],
-            url_base: 'https://drink-log-backend.herokuapp.com/api/v1/drinks',
+            // drinklist: [{}],
+            // // url_base: 'https://drink-log-backend.herokuapp.com/api/v1/drinks',
+            // url_base: 'http://localhost:3000/api/v1/drinks',
             new_drink: '',
-            category: ''
+            category: '',
         }
-    },
-    mounted() {
-        fetch(`${this.url_base}`)
-        .then( res =>  res.json())
-        .then(this.setResults)
     },
     methods:{
-        setResults (results) {
-            console.log(results)
-            this.drinklist = results
-            console.log(this.drinklist[0].name);
-        },
-        createDrink () {
+
+        createDrink() {
+            if (this.new_drink != "" && this.category != ""){
             const requestOptions = {
                 method: "POST",
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json',
+                'X-User-Email': localStorage.getItem('email'),
+                'X-User-Token': localStorage.getItem('authentication_token') },
                 body: JSON.stringify({ name: this.new_drink, category: this.category })
             };
-              fetch("https://drink-log-backend.herokuapp.com/api/v1/drinks", requestOptions)
+              fetch(this.url_base, requestOptions)
                 .then(response => response.json())
-                .then(data => (response));
-            console.log(response)
-            console.log(this.new_drink)
-            this.new_drink = ""
-            this.category = ""
+                .then(data => console.log(data))
+            }
+                
+        },
+        destroy(id) {
+            const requestOptions = {
+                method: "DELETE",
+                headers: { 'Content-Type': 'application/json',
+                'X-User-Email': localStorage.getItem('email'),
+                'X-User-Token': localStorage.getItem('authentication_token')},
+                };
+              fetch(`${this.url_base}${id}`, requestOptions)
+            // console.log(id)
+
         }
+        // setResults() {
+        //     this.new_drink = ""
+        //     this.category = ""
+        //     this.$emit('set-results')
+        // }
     }
 }
 </script>
