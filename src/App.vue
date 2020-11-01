@@ -1,10 +1,14 @@
 <template>
 <div id="app">
   <!-- <signin :signed-in="signedIn"/> -->
-  <signin/>
+  <signin
+  :signedIn="signedIn"
+  @login="login($event)"
+  />
   <drinks  
   :drinklist="drinklist"
   :url_base="url_base"
+  @update="update()"
   />
 </div>
 </template>
@@ -21,8 +25,7 @@ export default {
   },
   data() {
     return{
-    // signedIn: false
-    // hello: 'hello world',
+    signedIn: !!localStorage.getItem('authentication_token'),
     drinklist: [{}],
     // url_base: 'https://drink-log-backend.herokuapp.com/api/v1/drinks',
     url_base: 'http://localhost:3000/api/v1/drinks/',
@@ -32,7 +35,7 @@ export default {
     }
   },    
   mounted() {
-    console.log('test')
+    console.log(this.signedIn)
     if (localStorage.getItem('authentication_token')) {  
     this.email = localStorage.getItem('email')
     this.getData()
@@ -40,6 +43,7 @@ export default {
   },
   methods: {
     getData() {
+      console.log("from Update")
       fetch(`${this.url_base}`, {
         headers: {
             'Content-Type': 'application/json',
@@ -53,7 +57,17 @@ export default {
     setResults(results) {
       console.log(results)
       this.drinklist = results
+      console.log(this.drinklist)
     },
+    login(status){
+      this.signedIn = status
+      this.getData()
+    },
+    update(){
+      this.getData()
+      console.log("update")
+      console.log(this.drinklist)
+    }
   }
 }
 </script>
