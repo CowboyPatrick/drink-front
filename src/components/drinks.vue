@@ -1,16 +1,21 @@
 <template>
     <h1>Drinks</h1>
+    
     <form id="new_drink_form" @submit.prevent="createDrink">
-        <label for="new_drink">Drink Name</label>
+        <div>
+        <label for="new_drink">Drink Name:</label>
         <input type="text" name="new_drink" v-model="new_drink">
-        <label for="drink_category">Category</label>
+        </div>
+        <div>
+        <label for="drink_category">Category:</label>
         <input type="text" for="drink_category" v-model="category">
+        </div>
         <button>Add a Drink</button>
     </form>
+    
     <div class="card-drink" v-for="drink in drinklist" :key=drink.id>
         <h2>Name: {{ drink.name }}</h2>
         <h3>Category: {{ drink.category}}</h3>
-        <p>{{drink.id}}</p>
         <button @click="destroy(drink.id)">Delete</button>
     </div>
 </template>
@@ -19,8 +24,9 @@
 
 export default {
     name: 'drinks',
+    emits: ['update'],
     props : {
-        drinklist: {
+        drinklist: {    
             type: Array
         },
         url_base: {
@@ -51,8 +57,13 @@ export default {
                 body: JSON.stringify({ name: this.new_drink, category: this.category })
             };
               fetch(this.url_base, requestOptions)
-                .then(response => response.json())
-                .then(data => console.log(data))
+                .then(response => {
+                    if (response){
+                        this.$emit("update")
+                    }
+                })
+                this.new_drink = ''
+                this.category = ''
             }
                 
         },
@@ -64,14 +75,14 @@ export default {
                 'X-User-Token': localStorage.getItem('authentication_token')},
                 };
               fetch(`${this.url_base}${id}`, requestOptions)
+                .then(response => {
+                    if (response){
+                        this.$emit("update")
+                    }
+                })
             // console.log(id)
 
         }
-        // setResults() {
-        //     this.new_drink = ""
-        //     this.category = ""
-        //     this.$emit('set-results')
-        // }
     }
 }
 </script>
@@ -86,6 +97,14 @@ export default {
 }
 
 #new_drink_form{
-    display: flexbox;
+    /* display: flexbox;
+    flex-direction: column; */
+    margin: 0 auto;
+    text-align: left;
+    width: 400px;
 }
+
+/* input{
+    text-align: right;
+} */
 </style>

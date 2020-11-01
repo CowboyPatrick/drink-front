@@ -7,24 +7,25 @@
         <input type="password" name="password" v-model="password">
         <button>Log In</button>
     </form>
-    <button v-else>Log Out</button>
+    <button v-else @click="logOut">Log Out</button>
 </template>
 
 <script>
 export default {
     name: 'signin',
-    // props: {
-    //     signedIn: Boolean
-    // },
+    props: {
+        signedIn: Boolean
+    },
     data() {
         return{
         email: '',
         password: '',
         sign_in_url: 'http://localhost:3000/api/v1/sign_in',
         apiResponse: {},
-        signedIn: false
+        // signedIn: false
         }
     },
+    emits: ['login'],
     methods:{
         logIn() {
             const requestOptions = {
@@ -40,12 +41,18 @@ export default {
                 // console.log(this.apiResponse)
                 localStorage.setItem('authentication_token', this.apiResponse.data.user.authentication_token)
                 localStorage.setItem('email', this.apiResponse.data.user.email)
-                this.signedIn = true
+                // this.signedIn = true
                 // this.$emit(signedIn)
+                this.$emit('login', true)
+                // this.$root.$emit('get-data')
                 });
             this.email = ''
             this.password = ''
-        }
+        },
+        logOut() {
+            localStorage.clear()
+            this.$emit('login', false)
+        },
     }
     
 }
