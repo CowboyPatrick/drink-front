@@ -22,7 +22,6 @@ export default {
         password: '',
         sign_in_url: 'http://localhost:3000/api/v1/sign_in',
         apiResponse: {},
-        // signedIn: false
         }
     },
     emits: ['login'],
@@ -34,17 +33,12 @@ export default {
                 body: JSON.stringify({user: { email: this.email, password: this.password }})
             };
             fetch(this.sign_in_url, requestOptions)
-            // .then(response => console.log(response.headers))
             .then(response => response.json())
             .then(data => {
                 this.apiResponse = data
-                // console.log(this.apiResponse)
                 localStorage.setItem('authentication_token', this.apiResponse.data.user.authentication_token)
                 localStorage.setItem('email', this.apiResponse.data.user.email)
-                // this.signedIn = true
-                // this.$emit(signedIn)
                 this.$emit('login', true)
-                // this.$root.$emit('get-data')
                 });
             this.email = ''
             this.password = ''

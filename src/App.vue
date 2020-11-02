@@ -1,6 +1,5 @@
 <template>
 <div id="app">
-  <!-- <signin :signed-in="signedIn"/> -->
   <signin
   :signedIn="signedIn"
   @login="login($event)"
@@ -29,8 +28,6 @@ export default {
     drinklist: [{}],
     // url_base: 'https://drink-log-backend.herokuapp.com/api/v1/drinks',
     url_base: 'http://localhost:3000/api/v1/drinks/',
-    // new_drink: '',
-    // category: '',
     email: ''
     }
   },    
@@ -55,9 +52,7 @@ export default {
     .then(this.setResults)
     },      
     setResults(results) {
-      console.log(results)
       this.drinklist = results
-      console.log(this.drinklist)
     },
     login(status){
       this.signedIn = status
@@ -65,14 +60,13 @@ export default {
     },
     update(){
       this.getData()
-      console.log("update")
-      console.log(this.drinklist)
     }
   }
 }
 </script>
 
 <style>
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -80,5 +74,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  background: #4a3f35;
 }
 </style>
