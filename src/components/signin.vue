@@ -1,5 +1,4 @@
 <template>  
-<h1>Sign in</h1>
     <form id="sign_in_form" @submit.prevent="logIn" v-if="signedIn === false">
         <label for="email">Email: </label>
         <input type="text" name="email" v-model="email">

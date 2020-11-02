@@ -1,5 +1,4 @@
 <template>
-    <h1>Drinks</h1>
     
     <form id="new_drink_form" @submit.prevent="createDrink">
         <div>
@@ -12,11 +11,12 @@
         </div>
         <button>Add a Drink</button>
     </form>
-    
-    <div class="card-drink" v-for="drink in drinklist" :key=drink.id>
-        <h2>Name: {{ drink.name }}</h2>
-        <h3>Category: {{ drink.category}}</h3>
-        <button @click="destroy(drink.id)">Delete</button>
+    <div class="drinks">
+        <div class="card-drink" v-for="drink in drinklist" :key=drink.id>
+            <h2>Name: {{ drink.name }}</h2>
+            <h3>Category: {{ drink.category}}</h3>
+            <button @click="destroy(drink.id)">Delete</button>
+        </div>
     </div>
 </template>
     
@@ -89,11 +89,17 @@ export default {
 
 <style scoped>
 .card-drink {
-    border: 1px solid grey;
+    border: 1px solid #1a1c20;
     margin: 0 auto;
     width: 400px;
     margin-bottom: 8px;
     box-shadow: -2px 2px;
+    background-color: #ffd5cd;
+}
+
+.drinks {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #new_drink_form{
