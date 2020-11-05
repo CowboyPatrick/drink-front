@@ -16,7 +16,14 @@
             <h2>Name: {{ drink.name }}</h2>
             <h3>Category: {{ drink.category}}</h3>
             <button @click="destroy(drink.id)">Delete</button>
+            <button @click="collapse(drink.id, $event)" class="collapsible">Reviews</button>
+            <div class="content" >
+                <div v-for="review in drink.reviews" :key=review.id>
+                {{review.content}}
+                </div> 
+            </div>
         </div>
+        
     </div>
 </template>
     
@@ -38,9 +45,6 @@ export default {
     },
     data() {
         return {
-            // drinklist: [{}],
-            // // url_base: 'https://drink-log-backend.herokuapp.com/api/v1/drinks',
-            // url_base: 'http://localhost:3000/api/v1/drinks',
             new_drink: '',
             category: '',
         }
@@ -80,8 +84,15 @@ export default {
                         this.$emit("update")
                     }
                 })
-            // console.log(id)
 
+        },
+        collapse(id, event) {
+            // let coll = document.querySelectorAll('.content')
+            if(event.target.nextElementSibling.style.display === 'block'){
+                event.target.nextElementSibling.style.display = 'none'
+            } else {
+                event.target.nextElementSibling.style.display = 'block'
+            }
         }
     }
 }
@@ -95,6 +106,7 @@ export default {
     margin-bottom: 8px;
     box-shadow: -2px 2px;
     background-color: #ffd5cd;
+    border-radius: 8px;
 }
 
 .drinks {
@@ -108,6 +120,32 @@ export default {
     margin: 0 auto;
     text-align: left;
     width: 400px;
+}
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 400px;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
 }
 
 /* input{
