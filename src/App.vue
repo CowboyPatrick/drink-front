@@ -32,7 +32,6 @@ export default {
     }
   },    
   mounted() {
-    console.log(this.signedIn)
     if (localStorage.getItem('authentication_token')) {  
     this.email = localStorage.getItem('email')
     this.getData()
@@ -40,7 +39,6 @@ export default {
   },
   methods: {
     getData() {
-      console.log("from Update")
       fetch(`${this.url_base}`, {
         headers: {
             'Content-Type': 'application/json',
@@ -66,14 +64,20 @@ export default {
 </script>
 
 <style>
-
+* {
+  margin: 0;
+  padding: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #fa7d09;
   margin-top: 60px;
-  background: #4a3f35;
+  height: 100vh;
+  background-color: #ffac81;
+  background-image: linear-gradient(to left top, #ffac81 50%, #ff928b 50%);
+
 }
 </style>
