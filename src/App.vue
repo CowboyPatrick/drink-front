@@ -75,10 +75,16 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #fa7d09;
-  margin-top: 60px;
   height: 100vh;
-  background-color: #ffac81;
-  background-image: linear-gradient(to left top, #ffac81 50%, #ff928b 50%);
-
+  /* background-color: #ffac81;
+  background-image: linear-gradient(to left top, #ffac81 50%, #ff928b 50%); */
+  background-image: url(assets/background.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
 }
 </style>

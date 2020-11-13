@@ -1,5 +1,4 @@
 <template>
-    
     <form enctype="multipart/form-data" @submit.prevent="createDrink(event)">
         <div>
         <label for="name">Drink Name:</label>
@@ -20,18 +19,19 @@
         <button>Add a Drink</button>
     </form>
     <div class="drinks">
-        <div class="card-drink" v-for="drink in drinklist" :key=drink.id>
+        <div v-for="drink in drinklist" :key=drink.id>
+        <div class="card-drink">
             <h2>Name: {{ drink.name }}</h2>
             <h3>Category: {{ drink.category}}</h3>
             <button @click="destroy(drink.id)">Delete</button>
-            <button @click="collapse(drink.id, $event)" class="collapsible">Reviews</button>
+            <!-- <button @click="collapse(drink.id, $event)" class="collapsible">Reviews</button>
             <div class="content" >
                 <div v-for="review in drink.reviews" :key=review.id>
                 {{review.content}}
                 </div> 
-            </div>
+            </div> -->
         </div>
-        
+        </div>
     </div>
 </template>
     
@@ -125,10 +125,16 @@ export default {
     border: 1px solid #1a1c20;
     margin: 0 auto;
     width: 400px;
+    height: 200px;
     margin-bottom: 8px;
     box-shadow: -2px 2px;
-    background-color: #ffd5cd;
+    /* background-color: #ffd5cd; */
+    /* background-image: url(); */
     border-radius: 8px;
+    background-image: url(../assets/profile.jpg);
+     background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .drinks {
