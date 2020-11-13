@@ -1,13 +1,21 @@
 <template>
     
-    <form id="new_drink_form" @submit.prevent="createDrink">
+    <form enctype="multipart/form-data" @submit.prevent="createDrink(event)">
         <div>
-        <label for="new_drink">Drink Name:</label>
-        <input type="text" name="new_drink" v-model="new_drink">
+        <label for="name">Drink Name:</label>
+        <input type="text" name="drink[name]" v-model="name">
         </div>
         <div>
-        <label for="drink_category">Category:</label>
-        <input type="text" for="drink_category" v-model="category">
+        <label for="category">Category:</label>
+        <input type="text" name="drink[category]" v-model="category">
+        <label for="photo">Upload an Image</label>
+        <input
+            type="file"
+            name="drink[photo]"
+            ref="inputFile" 
+            
+            accept="image/*"
+        />
         </div>
         <button>Add a Drink</button>
     </form>
@@ -45,20 +53,31 @@ export default {
     },
     data() {
         return {
-            new_drink: '',
+            name: '',
             category: '',
+            photo: null,
+            formData: null,
+            drink: {}
         }
     },
     methods:{
 
         createDrink() {
-            if (this.new_drink != "" && this.category != ""){
+            // const params = {
+            // 'name': this.name,
+            // 'category': this.category,
+            // 'photo': this.photo
+            // }
+
+            let formData = new FormData(event.currentTarget)
+
             const requestOptions = {
                 method: "POST",
-                headers: { 'Content-Type': 'application/json',
+                headers: { 
+                "Accept": 'application/json',
                 'X-User-Email': localStorage.getItem('email'),
                 'X-User-Token': localStorage.getItem('authentication_token') },
-                body: JSON.stringify({ name: this.new_drink, category: this.category })
+                body: formData
             };
               fetch(this.url_base, requestOptions)
                 .then(response => {
@@ -66,9 +85,9 @@ export default {
                         this.$emit("update")
                     }
                 })
-                this.new_drink = ''
+                this.drink = ''
                 this.category = ''
-            }
+            // }
                 
         },
         destroy(id) {
@@ -93,7 +112,10 @@ export default {
             } else {
                 event.target.nextElementSibling.style.display = 'block'
             }
-        }
+        },
+        // uploadFile(){
+        //     this.photo = this.$refs.inputFile.files[0];
+        // }
     }
 }
 </script>

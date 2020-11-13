@@ -51,6 +51,7 @@ export default {
     },      
     setResults(results) {
       this.drinklist = results
+      console.log(results)
     },
     login(status){
       this.signedIn = status
