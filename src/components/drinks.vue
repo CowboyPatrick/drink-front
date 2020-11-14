@@ -19,8 +19,9 @@
         <button>Add a Drink</button>
     </form>
     <div class="drinks">
-        <div v-for="drink in drinklist" :key=drink.id>
-        <div class="card-drink">
+        <div v-for="(drink, index) in drinklist" 
+        :key=drink.id class="card-drink" 
+        v-bind:style="{backgroundImage: 'url(' + drinklist[index].image_url + ')'}">
             <h2>Name: {{ drink.name }}</h2>
             <h3>Category: {{ drink.category}}</h3>
             <button @click="destroy(drink.id)">Delete</button>
@@ -30,7 +31,7 @@
                 {{review.content}}
                 </div> 
             </div> -->
-        </div>
+        <!-- </div> -->
         </div>
     </div>
 </template>
@@ -57,7 +58,7 @@ export default {
             category: '',
             photo: null,
             formData: null,
-            drink: {}
+            // drink: {}
         }
     },
     methods:{
@@ -124,14 +125,13 @@ export default {
 .card-drink {
     border: 1px solid #1a1c20;
     margin: 0 auto;
-    width: 400px;
+    width: 350px;
     height: 200px;
     margin-bottom: 8px;
     box-shadow: -2px 2px;
     /* background-color: #ffd5cd; */
     /* background-image: url(); */
     border-radius: 8px;
-    background-image: url(../assets/profile.jpg);
      background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

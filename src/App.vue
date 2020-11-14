@@ -74,7 +74,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #fa7d09;
+  color: #fa7d09; 
   height: 100vh;
   /* background-color: #ffac81;
   background-image: linear-gradient(to left top, #ffac81 50%, #ff928b 50%); */
