@@ -51,6 +51,7 @@ export default {
     },      
     setResults(results) {
       this.drinklist = results
+      console.log(results)
     },
     login(status){
       this.signedIn = status
@@ -73,11 +74,17 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #fa7d09;
-  margin-top: 60px;
+  color: #fa7d09; 
   height: 100vh;
-  background-color: #ffac81;
-  background-image: linear-gradient(to left top, #ffac81 50%, #ff928b 50%);
-
+  /* background-color: #ffac81;
+  background-image: linear-gradient(to left top, #ffac81 50%, #ff928b 50%); */
+  background-image: url(assets/background.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
 }
 </style>
