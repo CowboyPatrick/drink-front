@@ -1,18 +1,19 @@
 <template>
-    <form enctype="multipart/form-data" @submit.prevent="createDrink(event)">
+    <form id="new_drink_form" refs="drinkForm" enctype="multipart/form-data" @submit.prevent="createDrink(event)">
         <div>
         <label for="name">Drink Name:</label>
-        <input type="text" name="drink[name]" v-model="name">
+        <input type="text" name="drink[name]" v-model="drink">
         </div>
         <div>
         <label for="category">Category:</label>
         <input type="text" name="drink[category]" v-model="category">
-        <label for="photo">Upload an Image</label>
+        </div>
+        <div>
+        <label for="photo">Upload an Image:</label>
         <input
             type="file"
             name="drink[photo]"
             ref="inputFile" 
-            
             accept="image/*"
         />
         </div>
@@ -54,7 +55,7 @@ export default {
     },
     data() {
         return {
-            name: '',
+            drink: '',
             category: '',
             photo: null,
             formData: null,
@@ -88,6 +89,7 @@ export default {
                 })
                 this.drink = ''
                 this.category = ''
+                this.$refs.inputFile.value = ''
             // }
                 
         },
